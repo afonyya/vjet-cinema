@@ -1,21 +1,27 @@
 <template>
   <div>
     <AppLoader v-if="isLoad" />
-    <MovieMain
-      v-else
-      :movie="movie"
-    />
+
+    <div v-else>
+      <MovieMain :movie="movie" />
+      <MovieSessions
+        :movieSessions="movieSessions"
+        class="mt-4"
+      />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from 'vuex'
 import MovieMain from '@/components/info/MovieMain'
+import MovieSessions from '@/components/info/MovieSessions'
 
 export default {
   name: 'MovieInfo',
   components: {
-    MovieMain
+    MovieMain,
+    MovieSessions
   },
   data() {
     return {
@@ -24,14 +30,15 @@ export default {
   },
   computed: {
     ...mapState({
-      movie: state => state.movie
+      movie: state => state.movie,
+      movieSessions: state => state.movieSessions
     })
   },
   methods: {
-    ...mapActions(['getMovie'])
+    ...mapActions(['getMovieInfo'])
   },
   async mounted() {
-    await this.getMovie(this.$route.params.id)
+    await this.getMovieInfo(this.$route.params.id)
     this.isLoad = false
   }
 }

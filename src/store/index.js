@@ -17,7 +17,7 @@ export default new Vuex.Store({
       state.movie = movie
     },
     SET_MOVIE_SESSIONS(state, sessions) {
-      state.sessions = sessions
+      state.movieSessions = sessions
     }
   },
   actions: {
@@ -48,9 +48,24 @@ export default new Vuex.Store({
         )
       ).json()
 
-      console.log(response.data[id])
-
       !response.error_code && commit('SET_MOVIE_SESSIONS', response.data[id])
+    },
+    async getMovieInfo({ dispatch }, id) {
+      return await Promise.all([
+        dispatch('getMovie', id),
+        dispatch('getMovieSessions', id)
+      ])
+    },
+    async getMoviePlaces(context, params) {
+      await (
+        await fetch(
+          `https://cinema-api-test.y-media.io/v1/showPlaces?${new URLSearchParams(
+            params
+          )}`
+        )
+      ).json()
+
+      // console.log(response)
     }
   }
 })
