@@ -1,6 +1,6 @@
 <template>
   <v-progress-circular
-    size="240"
+    size="60"
     indeterminate
   />
 </template>

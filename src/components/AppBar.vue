@@ -5,7 +5,8 @@
         to="/"
         class="text-decoration-none"
       >
-        Vjet Cinema
+        <span class="font-weight-bold">Vjet</span>
+        <span>Cinema</span>
       </router-link>
     </v-app-bar-title>
 

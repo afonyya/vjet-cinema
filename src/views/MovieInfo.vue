@@ -35,10 +35,11 @@ export default {
     })
   },
   methods: {
-    ...mapActions(['getMovieInfo'])
+    ...mapActions(['getMovie', 'getMovieSessions'])
   },
   async mounted() {
-    await this.getMovieInfo(this.$route.params.id)
+    const result = await this.getMovie(this.$route.params.id)
+    result && (await this.getMovieSessions(this.$route.params.id))
     this.isLoad = false
   }
 }
